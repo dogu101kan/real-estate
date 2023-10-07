@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -22,7 +23,6 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", function (next) {
-  console.log("saveee");
   if (!this.isModified("password")) next();
 
   bcrypt.genSalt(10, (err, salt)=>{
@@ -34,5 +34,20 @@ userSchema.pre("save", function (next) {
     });
   });
 });
+
+userSchema.methods.generateJwt = function(){
+  const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
+
+  const payload = {
+    id : this._id,
+    username : this.username
+  };
+
+  const token = jwt.sign(payload, JWT_SECRET_KEY,{
+    expiresIn : JWT_EXPIRE
+  });
+
+  return token;
+};
 
 module.exports = mongoose.model("User", userSchema);

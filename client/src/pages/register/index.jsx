@@ -81,7 +81,7 @@ const Register = () => {
         </label>
 
         <button disabled={loading} className="px-7 py-2 mt-1 rounded-2xl border border-[color:var(--color-primary)] text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)] hover:text-[color:var(--background-primary)] transition-colors disabled:bg-[color:var(--color-primary)] disabled:opacity-50 disabled:text-[color:var(--background-primary)]">
-          {loading ? "Just a moment" : "Kaydol"}
+          {loading ? "Just a moment" : "Register"}
         </button>
         <div className="w-full flex">
           <p>Have an account?</p>

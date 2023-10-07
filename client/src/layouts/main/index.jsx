@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../components/navbar";
-import {useAppearance} from "../../store/appearance/hook"
+import {useAppearance} from "../../store/appearance/hooks"
 import { useEffect } from "react";
 
 const MainLayout = () => {
