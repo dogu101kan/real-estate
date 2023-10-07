@@ -1,11 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { setSignInStart, setSignInSuccess, setSignInFailure } from "../../store/user/actions"
+import {
+  setSignInStart,
+  setSignInSuccess,
+  setSignInFailure,
+} from "../../store/user/actions";
 import { useUser } from "../../store/user/hooks";
+import OAuth from "../../components/OAuth";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
-  const { loading, error }  = useUser();
+  const { loading, error } = useUser();
 
   const navigate = useNavigate();
 
@@ -20,7 +25,7 @@ const Login = () => {
     e.preventDefault();
 
     setSignInStart();
-    
+
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
@@ -32,7 +37,6 @@ const Login = () => {
     const data = await res.json();
 
     if (data.success === false) {
-      
       setSignInFailure(data.message);
       return;
     }
@@ -45,9 +49,9 @@ const Login = () => {
     <div className="max-w-md m-auto">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5 my-10 items-center p-3 sm:px-16"
+        className="flex flex-col gap-3 my-10 items-center p-3 sm:px-16"
       >
-        <h1 className="text-3xl font-bold text-[color:var(--color-base-secondary)] mb-4 text-center">
+        <h1 className="text-3xl font-bold text-[color:var(--color-base-secondary)] text-center">
           Sign In
         </h1>
 
@@ -72,12 +76,15 @@ const Login = () => {
           />
         </label>
 
-        <button
-          disabled={loading}
-          className="px-7 py-2 mt-1 rounded-2xl border border-[color:var(--color-primary)] text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)] hover:text-[color:var(--background-primary)] transition-colors disabled:bg-[color:var(--color-primary)] disabled:opacity-50 disabled:text-[color:var(--background-primary)]"
-        >
-          {loading ? "Just a moment" : "Sign In"}
-        </button>
+        <div className="flex gap-5">
+          <button
+            disabled={loading}
+            className="px-7 py-2 mt-1 rounded-2xl border border-[color:var(--color-primary)] text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)] hover:text-[color:var(--background-primary)] transition-colors disabled:bg-[color:var(--color-primary)] disabled:opacity-50 disabled:text-[color:var(--background-primary)]"
+          >
+            {loading ? "Just a moment" : "Sign In"}
+          </button>
+          <OAuth />
+        </div>
         <div className="w-full flex">
           <p>Have an account?</p>
           <Link

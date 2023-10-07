@@ -33,7 +33,24 @@ const login =  asyncErrorWrapper(async(req, res, next)=>{
     sendJwtToClient(user, res);
 });
 
+const googleSign = asyncErrorWrapper(async(req, res, next)=>{
+    const user = await User.findOne({email : req.body.email});
+    
+    if(user) sendJwtToClient(user, res);
+    else{
+        const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+        const user = await User.create({
+            username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
+            email:  req.body.email,
+            password: generatePassword,
+            avatar: req.body.photo
+        });
+        sendJwtToClient(user, res)
+    }
+});
+
 module.exports = {
     signUp,
-    login
+    login,
+    googleSign
 }

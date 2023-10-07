@@ -10,7 +10,7 @@ export default function Navbar() {
   });
 
   return (
-    <header className="bg-[color:var(--background-primary)] shadow-[color:var(--box-shadow)]">
+    <header className="bg-[color:var(--background-primary)] shadow-md">
       <div className="flex flex-col sm:flex-row items-center justify-between max-w-6xl mx-auto p-3">
         <Link to="/">
           <h1 className="font-bold text-2xl sm:text-4xl flex">
