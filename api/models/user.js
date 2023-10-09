@@ -39,6 +39,7 @@ userSchema.pre("save", function (next) {
   });
 });
 
+
 userSchema.methods.generateJwt = function(){
   const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
 

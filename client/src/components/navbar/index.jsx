@@ -1,9 +1,11 @@
 import { useCallback, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useUser } from "../../store/user/hooks";
 
 export default function Navbar() {
   const search = useRef(null);
+  const {currentUser} = useUser();
 
   const setFocus = useCallback(() => {
     search.current.focus();
@@ -29,7 +31,7 @@ export default function Navbar() {
             <FaSearch className="text-[color:var(--color-base)]" />
           </label>
         </form>
-        <ul className="flex gap-11 mt-2.5 sm:gap-8 sm:mt-0">
+        <ul className="flex gap-11 sm:gap-8 sm:mt-0 items-center">
           <Link to="/">
             <li className=" sm:inline hover:text-[color:var(--color-base-secondary)]">
               Home
@@ -41,9 +43,13 @@ export default function Navbar() {
             </li>
           </Link>
           <Link to="/login">
+            {currentUser ? (
+              <img src={import.meta.env.VITE_API_ADRESS+"/images/profileImages/"+currentUser.data.avatar} alt="profile picture" className="w-10 rounded-full "/>
+            ):
             <li className="flex hover:text-[color:var(--color-secondary)]">
               Login
             </li>
+            }
           </Link>
         </ul>
       </div>

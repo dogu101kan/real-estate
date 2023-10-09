@@ -13,9 +13,23 @@ const sendJwtToClient = (user, res) =>{
         access_token : token,
         data : {
             username : user.username,
-            email : user.email
+            email : user.email,
+            avatar: user.avatar
         }
     });
 };
 
-module.exports = { sendJwtToClient };
+const isTokenIncluded = req => {
+    return req.headers.authorization && req.headers.authorization.startsWith("Bearer");
+};
+const getAccessToken = req => {
+    const authorization = req.headers.authorization;
+    const access_token = authorization.split(" ")[1];
+    return access_token
+}
+
+module.exports = {
+    sendJwtToClient,
+    isTokenIncluded,
+    getAccessToken,
+};
