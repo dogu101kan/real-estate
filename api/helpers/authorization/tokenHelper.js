@@ -12,6 +12,7 @@ const sendJwtToClient = (user, res) =>{
         success : true,
         access_token : token,
         data : {
+            id : user.id,
             username : user.username,
             email : user.email,
             avatar: user.avatar

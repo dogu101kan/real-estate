@@ -42,7 +42,7 @@ export default function Navbar() {
               About
             </li>
           </Link>
-          <Link to="/login">
+          <Link to={currentUser ? `/profile/${currentUser.data.username}`:"/login"}>
             {currentUser ? (
               <img src={import.meta.env.VITE_API_ADRESS+"/images/profileImages/"+currentUser.data.avatar} alt="profile picture" className="w-10 rounded-full "/>
             ):

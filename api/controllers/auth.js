@@ -25,12 +25,11 @@ const signUp = asyncErrorWrapper(async(req, res)=>{
 
 const login =  asyncErrorWrapper(async(req, res, next)=>{
     const { email, password } = req.body;
-
-    if(!validateUserInput(email, password)) return next(customError(400, "Please check your input"));
-
-    const user = await User.findOne({email});
     
-    if(!comparePassword(password, user.password)) return next(customError(400, "Please check your credential"));
+    if(!validateUserInput(email, password)) return next(customError(400, "Please check your input"));
+    
+    const user = await User.findOne({email});
+    if(!user || !comparePassword(password, user.password)) return next(customError(400, "Please check your credential"));
     
     sendJwtToClient(user, res);
 });
@@ -58,7 +57,7 @@ const imageUpload = asyncErrorWrapper(async(req, res, next)=>{
     const file = path.join(rootDir, '/public/images/profileImages/');
     const filePath = path.join(file, user.avatar);
 
-    fileDelete(filePath);
+    fileDelete(filePath)
 
     user.avatar = req.imageName;
     user.save()
@@ -72,9 +71,25 @@ const imageUpload = asyncErrorWrapper(async(req, res, next)=>{
     });
 });
 
+const logout = asyncErrorWrapper(async(req, res, next)=>{
+    const {NODE_ENV} = process.env;
+    
+    return res
+    .cookie({
+        httpOnly: true,
+        expires: new Date(Date.now()),
+        secure: NODE_ENV === "development" ? false:true
+    }).status(200)
+    .json({
+        succes : true,
+        message: "User has been logout.",
+    });
+});
+
 module.exports = {
     signUp,
     login,
     googleSign,
     imageUpload,
+    logout,
 }

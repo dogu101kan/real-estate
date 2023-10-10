@@ -12,9 +12,8 @@ const getAccess = (req, res, next)=>{
     const accessToken = getAccessToken(req);
 
     jwt.verify(accessToken, JWT_SECRET_KEY, (err, decoded)=>{
-        if(err){
-            return next(customError(401, "You re not authorized. Token Expired" ));
-        }
+        if(err) return next(customError(401, "You re not authorized. Token Expired" ));
+
         
         req.user = {
             id : decoded.id,

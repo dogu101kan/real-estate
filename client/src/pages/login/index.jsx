@@ -88,7 +88,7 @@ const Login = () => {
         <div className="w-full flex">
           <p>Have an account?</p>
           <Link
-            to="/register"
+            to={"/register"}
             className="text-[color:var(--color-primary)] pl-1"
           >
             Sign Up.
