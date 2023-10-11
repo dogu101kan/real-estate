@@ -18,6 +18,7 @@ import {
   setLogoutFailure,
 } from "../../store/user/actions";
 import axios from "axios";
+import { setModal } from "../../store/modal/actions";
 
 export default function Profile() {
   const { currentUser, loading, error } = useUser();
@@ -199,6 +200,13 @@ export default function Profile() {
           >
             {loading ? "Just a moment..." : "Update"}
           </button>
+          <button
+            onClick={()=>setModal("product-listing")}
+            className="self-center text-center min-w-full in w-1/4 py-2 px-1 mt-1 rounded-2xl border border-[color:var(--color-primary)] text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)] hover:text-[color:var(--background-primary)] transition-colors disabled:bg-[color:var(--color-primary)] disabled:opacity-50 disabled:text-[color:var(--background-primary)]"
+          >
+            {"List a house"}
+          </button>
+
           <div className="flex flex-nowrap justify-between">
             <span
               onClick={handleDeleteAccount}

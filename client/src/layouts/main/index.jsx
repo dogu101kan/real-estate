@@ -2,9 +2,12 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import {useAppearance} from "../../store/appearance/hooks"
 import { useEffect } from "react";
+import Modal from "../../modals";
+import { useModal } from "../../store/modal/hooks";
 
 const MainLayout = () => {
 
+  const modal = useModal();
   const appearance = useAppearance();
 
   useEffect(()=>{
@@ -24,6 +27,7 @@ const MainLayout = () => {
     <div>
       <Navbar />
       <main>
+        {modal&& <Modal/>}
         <Outlet />
       </main>
     </div>

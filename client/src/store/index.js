@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import appearance from "./appearance";
 import userSlice from "./user";
+import modal from "./modal"
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
 const rootReducer = combineReducers({
     appearance,
     userSlice,
+    modal,
 });
 
 const persistConfig = {
